@@ -18,4 +18,4 @@ Designated Submitter
 Github Repo Link
 --------------------
 
-[Github repo link]
+https://github.com/MadMelLoLoL/CSE-024-Project
