@@ -17,6 +17,7 @@ class Application : public bobcat::Application_ {
     void onCanvasDrag(bobcat::Widget* sender, float mx, float my);
     void onToolbarChange(bobcat::Widget* sender);
     void onColorSelectorChange(bobcat::Widget* sender);
+    void eraseAt(float x, float y);
 
 public:
     Application();

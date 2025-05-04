@@ -4,6 +4,11 @@
 using namespace bobcat;
 using namespace std;
 
+
+void Application::eraseAt(float x, float y){
+    canvas->eraseShapeAt(x, y);
+}
+
 void Application::onCanvasMouseDown(bobcat::Widget* sender, float mx, float my) {
     TOOL tool = toolbar->getTool();
     Color color = colorSelector->getColor();
@@ -13,7 +18,7 @@ void Application::onCanvasMouseDown(bobcat::Widget* sender, float mx, float my) 
         canvas->redraw();
     }
     else if (tool == ERASER) {
-        canvas->addPoint(mx, my, 1.0, 1.0, 1.0, 14);
+        eraseAt(mx,my);
         canvas->redraw();
     }
     else if (tool == RECTANGLE) {

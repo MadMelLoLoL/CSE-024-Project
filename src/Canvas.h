@@ -11,7 +11,7 @@
 class Canvas : public bobcat::Canvas_ {
     std::vector<Point*> points;
     std::vector<Shape*> shapes;
-    int selectedShape;
+    int selectedShape = -1;
 
 public:
     Canvas(int x, int y, int w, int h);
@@ -29,6 +29,8 @@ public:
     void render();
 
     Shape* getSelectedShape(float mx, float my);
+
+    void eraseShapeAt(float x, float y);
 };
 
 #endif

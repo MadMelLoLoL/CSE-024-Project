@@ -63,3 +63,17 @@ Shape* Canvas::getSelectedShape(float mx, float my) {
 
     return selectedShape;
 }
+
+void Canvas::eraseShapeAt(float x, float y){
+    for (int i = shapes.size() - 1; i >= 0; i--){
+        if (shapes[i] && shapes[i]->contains(x,y)){
+            if (selectedShape == i) selectedShape = -1;
+
+            delete shapes[i];
+            shapes.erase(shapes.begin() + i);
+
+            if (selectedShape > i) selectedShape--;
+            return;
+        }
+    }
+}
