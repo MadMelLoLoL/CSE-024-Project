@@ -84,13 +84,14 @@ void Application::onColorSelectorChange(bobcat::Widget* sender) {
 }
 
 Application::Application() {
-    window = new Window(25, 75, 400, 400, "Pain Simulator");
+    window = new Window(25, 75, 400, 550, "Pain Simulator");
 
     selectedShape = nullptr;
 
-    toolbar = new Toolbar(0, 0, 50, 400);
+    toolbar = new Toolbar(0, 0, 50, 350);
     canvas = new Canvas(50, 0, 350, 350);
-    colorSelector = new ColorSelector(50, 350, 350, 50);
+    colorSelector = new ColorSelector(50, 350, 350, 250);
+
     colorSelector->box(FL_BORDER_BOX);
 
     window->add(toolbar);
