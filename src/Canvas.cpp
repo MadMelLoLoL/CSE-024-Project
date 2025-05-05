@@ -3,6 +3,8 @@
 #include "Polygon.h"
 #include "Scribble.h"
 #include <GL/freeglut.h>
+#include <GL/gl.h>
+#include <bits/types/FILE.h>
 
 Canvas::Canvas(int x, int y, int w, int h) : Canvas_(x, y, w, h) {
     // 
@@ -65,28 +67,49 @@ void Canvas::render() {
 
 Shape* Canvas::getSelectedShape(float mx, float my) {
     Shape* selectedShape = nullptr;
+    this->selectedShape = -1;
+    
+    std::cout << "=== Checking selection at (" << mx << "," << my << ") ===" << std::endl;
 
     for (unsigned int i = 0; i < shapes.size(); i++) {
         // ask every shape if we clicked on it
         if (shapes[i]->contains(mx, my)) {
-            std::cout << "Clicked on shape[" << i << "]" << std::endl;
+            shapes[i]->selected = true; // trigger outline
             selectedShape = shapes[i];
-            break;
+
+            glColor3f(1,0,0);
+            glLineWidth(5);
+            glBegin(GL_LINE_LOOP);
+            glVertex2f(mx-0.1, my-0.1);
+            glVertex2f(mx+0.1, my-0.1);
+            glVertex2f(mx+0.1, my+0.1);
+            glVertex2f(mx-0.1, my+0.1);
+            glEnd();
+            glPopMatrix();
+            glFlush();
+
+            std::cout << "SELECTED Shape " << i << std::endl;
+            std::cout << "Drew RED selection square at (" << mx << "," << my << ")" << std::endl;
+            break; // only one shape
         }
+        std::cout << "Shape " << i << " selected: " << (shapes[i]->selected ? "true" : "false") << std::endl;
     }
 
-    for (unsigned int i = 0; i < scribbles.size(); i++){
-        if (scribbles[i]->contains(mx,my)){
-            std::cout << "Clicked on scribble["<< i << "]" << std::endl;
-            selectedShape = scribbles[i];
-            break;
-        }
-    }
+
     if (selectedShape == nullptr) {
-        std::cout << "No selected shape or scribble" << std::endl;
+        std::cout << "No selected shape" << std::endl;
+        this->selectedShape = -1;
     }
 
+    this->redraw();
     return selectedShape;
+}
+
+void Canvas::clearSelection(){
+    for (auto& shape : shapes){
+        shape->selected = false;
+    }
+    selectedShape = -1;
 }
 
 void Canvas::eraseShapeAt(float x, float y){

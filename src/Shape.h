@@ -9,16 +9,15 @@
 
 // Abstract Data Type
 class Shape{
-protected:
 float x;
 float y;
-bool selected;
 float r;
 float g;
 float b;
 
 
 public:
+    bool selected;
     virtual void draw() = 0;
     virtual bool contains(float mx, float my) = 0;
     virtual void setColor(float r, float g, float b) = 0;

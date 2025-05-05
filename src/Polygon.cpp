@@ -34,7 +34,7 @@ void Polygon::draw(){
     }
     glEnd();
 
-    if (selected){
+    if (selected == true){
         glColor3f(1.0f, 1.0f, 1.0f);
         glLineWidth(2.0f);
         glBegin(GL_LINE_LOOP);

@@ -37,6 +37,8 @@ public:
 //eraser tool 
     void eraseShapeAt(float x, float y);
 
+    void clearSelection();
+
     Shape* getSelectedShape(float mx, float my);
 };
 

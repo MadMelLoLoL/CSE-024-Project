@@ -2,6 +2,8 @@
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 #include <cmath>
+#include <bits/types/FILE.h>
+#include <iostream>
 
 Circle::Circle() {
     x = 0.0;
@@ -33,12 +35,6 @@ void Circle::draw() {
         }
     glEnd();
 
-    if(selected){
-        Circle outer(x, y, 0.85 * radius, 1.0f, 1.0f, 1.0f);
-        Circle inner(x, y, 0.75 * radius, r, g, b);
-        outer.draw();
-        inner.draw();
-    }
 }
 
 bool Circle::contains(float mx, float my) {

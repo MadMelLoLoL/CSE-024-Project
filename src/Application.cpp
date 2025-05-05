@@ -13,6 +13,12 @@ void Application::onCanvasMouseDown(bobcat::Widget* sender, float mx, float my) 
     TOOL tool = toolbar->getTool();
     Color color = colorSelector->getColor();
 
+    if (tool != MOUSE && selectedShape){
+        canvas->clearSelection();
+        selectedShape = nullptr;
+        canvas->redraw();
+    }
+
     if (tool == PENCIL) {
         canvas->addPoint(mx, my, color.getR(), color.getG(), color.getB(), 7);
         canvas->redraw();

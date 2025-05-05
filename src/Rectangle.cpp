@@ -33,7 +33,7 @@ void Rectangle::draw() {
         glVertex2f(x - width/2, y - height/2);
     glEnd();
 
-    if (selected){
+    if (selected == true){
         Rectangle outer(x, y, 0.85 * width, 0.85 * height, 1.0f, 1.0f, 1.0f);
         Rectangle inner(x, y, 0.75 * width, 0.75 * height, r, g, b);
         outer.draw();
