@@ -6,7 +6,7 @@
 #include <GL/gl.h>
 #include <bits/types/FILE.h>
 
-Canvas::Canvas(int x, int y, int w, int h) : Canvas_(x, y, w, h) {
+Canvas::Canvas(int x, int y, int w, int h) : Canvas_(x, y, w, h), selectedShape(nullptr) {
     // 
 }
 
@@ -49,6 +49,14 @@ void Canvas::clear() {
         delete scribbles[i];
     }
     scribbles.clear();
+
+    if (selectedShape != nullptr) {
+        std::cout << "Deselecting shape during clear" << std::endl;
+        selectedShape = nullptr;
+    }
+    else {
+        std::cout << "No selected shape to deselect during clear" << std::endl;
+    }
 }
 
 void Canvas::render() {
@@ -67,7 +75,6 @@ void Canvas::render() {
 
 Shape* Canvas::getSelectedShape(float mx, float my) {
     Shape* selectedShape = nullptr;
-    this->selectedShape = -1;
     
     std::cout << "=== Checking selection at (" << mx << "," << my << ") ===" << std::endl;
 
@@ -76,23 +83,9 @@ Shape* Canvas::getSelectedShape(float mx, float my) {
         if (shapes[i]->contains(mx, my)) {
             shapes[i]->selected = true; // trigger outline
             selectedShape = shapes[i];
-
-            glColor3f(1,0,0);
-            glLineWidth(5);
-            glBegin(GL_LINE_LOOP);
-            glVertex2f(mx-0.1, my-0.1);
-            glVertex2f(mx+0.1, my-0.1);
-            glVertex2f(mx+0.1, my+0.1);
-            glVertex2f(mx-0.1, my+0.1);
-            glEnd();
-            glPopMatrix();
-            glFlush();
-
-            std::cout << "SELECTED Shape " << i << std::endl;
-            std::cout << "Drew RED selection square at (" << mx << "," << my << ")" << std::endl;
-            break; // only one shape
+            return selectedShape;
         }
-        std::cout << "Shape " << i << " selected: " << (shapes[i]->selected ? "true" : "false") << std::endl;
+       
     }
 
      for (unsigned int i = 0; i < scribbles.size(); i++){
@@ -102,45 +95,39 @@ Shape* Canvas::getSelectedShape(float mx, float my) {
             break;
         }
     }
-
-    if (selectedShape == nullptr) {
-        std::cout << "No selected shape" << std::endl;
-        this->selectedShape = -1;
-    }
-
-    this->redraw();
-    return selectedShape;
+    std::cout << "No selected shape or scribble" << std::endl;
+    return nullptr; 
 }
 
-void Canvas::clearSelection(){
-    for (auto& shape : shapes){
-        shape->selected = false;
-    }
-    selectedShape = -1;
-}
+
 
 void Canvas::eraseShapeAt(float x, float y){
     //erases shapes
+    bool wasSelectedShapeErased = false;
+
     for (int i = shapes.size() - 1; i >= 0; i--){
         if (shapes[i] && shapes[i]->contains(x,y)){
-            if (selectedShape == i) selectedShape = -1;
-
+            if (shapes[i] == selectedShape) {
+                selectedShape = nullptr;
+            }
             delete shapes[i];
             shapes.erase(shapes.begin() + i);
-
-            if (selectedShape > i) selectedShape--;
-            return;
         }
     }
-
     // Erase scribbles
     for (int i = scribbles.size()-1; i >= 0; i--) {
         if (scribbles[i] && scribbles[i]->contains(x, y)) {
-            if (selectedShape == i) selectedShape = -1;
+            if (scribbles[i] == selectedShape) {
+                selectedShape = nullptr;
+            }
             delete scribbles[i];
             scribbles.erase(scribbles.begin() + i);
             
         }
         
+    }
+
+    if (wasSelectedShapeErased) {
+        selectedShape = nullptr;
     }
 }
