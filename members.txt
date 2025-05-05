@@ -1,0 +1,22 @@
+Group Name
+----------
+
+ThoughtsN'Prayers
+
+Members
+-------
+
+[Madison Bazan - MadMelLoLoL]
+[Claudio Cuevas - izzilb]
+
+
+Designated Submitter
+--------------------
+
+[Madison Bazan]
+
+
+Github Repo Link
+--------------------
+
+https://github.com/MadMelLoLoL/CSE-024-Project
