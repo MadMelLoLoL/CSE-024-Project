@@ -122,7 +122,7 @@ class Scribble : public Shape {
         }
 
         float getSize() const{
-
+            
         } 
 };
 

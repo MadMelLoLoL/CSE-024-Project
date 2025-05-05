@@ -111,7 +111,7 @@ void Application::onCanvasMouseUp(bobcat::Widget* sender, float mx, float my){
 
 
 Application::Application() {
-    window = new Window(25, 75, 400, 600, "Pain Simulator");
+    window = new Window(25, 75, 400, 600, "Paint Simulator");
 
     selectedShape = nullptr;
 
