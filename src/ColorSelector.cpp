@@ -10,6 +10,7 @@ void ColorSelector::deselectAllColors() {
     blueButton->label("");
     indigoButton->label("");
     violetButton->label("");
+    rgbButton->label("");
 }
 
 void ColorSelector::visualizeSelectedColor() {
@@ -60,6 +61,11 @@ void ColorSelector::onClick(bobcat::Widget* sender) {
     else if (sender == violetButton) {
         color = VIOLET;
     }
+    else if (sender == rgbButton) {
+        rgbSet();  
+        return;    
+    }
+
 
     if (onChangeCb) {
         onChangeCb(this);
@@ -91,10 +97,37 @@ Color ColorSelector::getColor() const {
     else if (color == VIOLET) {
         return Color(148/255.0, 0/255.0, 211/255.0);
     }
+    else if (color == CUSTOM) {
+        // Get the custom color from the RGB button
+        Fl_Color c = rgbButton->color();
+        unsigned char red, green, blue;
+        Fl::get_color(c, red, green, blue);
+        return Color(red/255.0, green/255.0, blue/255.0);
+    }
     else {
         return Color();
     }
 }
+void ColorSelector::rgbSet() {  
+    int r = std::stoi(rInput->value());
+    int g = std::stoi(gInput->value());
+    int b = std::stoi(bInput->value());
+
+    //limit values (0-255)
+    r = (r < 0) ? 0 : (r > 255) ? 255 : r;
+    g = (g < 0) ? 0 : (g > 255) ? 255 : g;
+    b = (b < 0) ? 0 : (b > 255) ? 255 : b;
+
+    color = CUSTOM;
+    rgbButton->color(fl_rgb_color(r, g, b));
+    rgbButton->label("@+5square");
+
+    if (onChangeCb) {
+        onChangeCb(this);
+    }
+    redraw();
+}
+
 
 ColorSelector::ColorSelector(int x, int y, int w, int h) : Group(x, y, w, h) {
     redButton = new Button(x, y, 50, 50, "");
@@ -106,20 +139,22 @@ ColorSelector::ColorSelector(int x, int y, int w, int h) : Group(x, y, w, h) {
     violetButton = new Button(x + 300, y, 50, 50, "");
 
 //rgb textbox
-    rBox = new TextBox(x,y+25,100,100, " R Value");
-    gBox = new TextBox(x, y+100, 100,100, "G Value");
-    bBox = new TextBox(x, y+125, 100, 100, "B Value " );
+    rBox = new TextBox(x+125,y+50,50,25,"R-Value");
+    gBox = new TextBox(x+125,y+75,50,25,"G-Value");
+    bBox = new TextBox(x+125,y+100,50,25,"B-Value");
 //rgb input
-    rInput = new Input(x+200, y+50,50,50," " );
-    bInput = new Input(x+200, y+100,50,50, " " );
-    gInput = new Input(x+200, y+150,50,50, " ");
+    rInput = new Input(x+200, y+50,50,25," " );
+    bInput = new Input(x+200, y+75,50,25, " " );
+    gInput = new Input(x+200, y+100,50,25, " ");
 //rgb button val setter
-    rButton = new Button(x+250, y+50,100,50,"Set Value");
-    gButton = new Button(x+250, y+100,100,50,"Set Value");
-    bButton = new Button(x+250, y+150,100,50,"Set Value");
+    rgbButton = new Button(x+250, y+50,100,75,"Set Value");
 
     color = RED;//default color
-//color buttons
+    rInput->value("255");
+    gInput->value("255");
+    bInput->value("255");
+
+
     redButton->color(fl_rgb_color(255, 0, 0));
     redButton->labelcolor(FL_WHITE);
     orangeButton->color(fl_rgb_color(255, 127, 0));
@@ -144,4 +179,5 @@ ColorSelector::ColorSelector(int x, int y, int w, int h) : Group(x, y, w, h) {
     ON_CLICK(blueButton, ColorSelector::onClick);
     ON_CLICK(indigoButton, ColorSelector::onClick);
     ON_CLICK(violetButton, ColorSelector::onClick);
+     ON_CLICK(rgbButton, ColorSelector::onClick);
 }

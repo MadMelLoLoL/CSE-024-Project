@@ -33,6 +33,7 @@ public:
 
     void clear();
 
+
     void render();
 //eraser tool 
     void eraseShapeAt(float x, float y);
