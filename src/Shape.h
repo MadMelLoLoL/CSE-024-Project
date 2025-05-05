@@ -4,6 +4,8 @@
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 
+#include "Color.h"
+
 
 // Abstract Data Type
 class Shape{
@@ -33,7 +35,10 @@ public:
 
     void setX(float x){ this->x = x; }
     void setY(float y){ this->y = y; }
+
     
+
+    //void setColor(Color color) { this->color = color; }
 
     virtual ~Shape(){}
 };

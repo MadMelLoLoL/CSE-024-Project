@@ -53,7 +53,7 @@ void Application::onCanvasDrag(bobcat::Widget* sender, float mx, float my) {
         canvas->redraw();
     }
     else if (tool == ERASER) {
-        canvas->addPoint(mx, my, 1.0, 1.0, 1.0, 14);
+        eraseAt(mx, my);
         canvas->redraw();
     }
 }
