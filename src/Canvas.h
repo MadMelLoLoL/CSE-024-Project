@@ -13,7 +13,7 @@ class Canvas : public bobcat::Canvas_ {
     std::vector<Point*> points;
     std::vector<Shape*> shapes;
     std::vector<Scribble*> scribbles;
-    int selectedShape = -1;
+    Shape* selectedShape = nullptr;
 
 public:
     Canvas(int x, int y, int w, int h);
@@ -26,17 +26,20 @@ public:
 
     void addPolygon(float x, float y, float radius, int n, float rot, float r, float g, float b);
 
-    // Scribble management (NEW)
+    //scribble management
     void startNewScribble(float r, float g, float b, int size);
     void addToCurrentScribble(float x, float y);
     void finalizeCurrentScribble();
 
-    void clear();
-
-
     void render();
+
+    //front and back buttons
+    void moveFront();
+    void moveBack();
+
 //eraser tool 
     void eraseShapeAt(float x, float y);
+    void clear();
 
     Shape* getSelectedShape(float mx, float my);
 };

@@ -4,7 +4,7 @@
 #include "Scribble.h"
 #include <GL/freeglut.h>
 
-Canvas::Canvas(int x, int y, int w, int h) : Canvas_(x, y, w, h) {
+Canvas::Canvas(int x, int y, int w, int h) : Canvas_(x, y, w, h), selectedShape(nullptr) {
     // 
 }
 
@@ -47,6 +47,14 @@ void Canvas::clear() {
         delete scribbles[i];
     }
     scribbles.clear();
+
+    if (selectedShape != nullptr) {
+        std::cout << "Deselecting shape during clear" << std::endl;
+        selectedShape = nullptr;
+    }
+    else {
+        std::cout << "No selected shape to deselect during clear" << std::endl;
+    }
 }
 
 void Canvas::render() {
@@ -71,8 +79,9 @@ Shape* Canvas::getSelectedShape(float mx, float my) {
         if (shapes[i]->contains(mx, my)) {
             std::cout << "Clicked on shape[" << i << "]" << std::endl;
             selectedShape = shapes[i];
-            break;
+            return selectedShape;
         }
+       
     }
 
     for (unsigned int i = 0; i < scribbles.size(); i++){
@@ -82,35 +91,37 @@ Shape* Canvas::getSelectedShape(float mx, float my) {
             break;
         }
     }
-    if (selectedShape == nullptr) {
-        std::cout << "No selected shape or scribble" << std::endl;
-    }
-
-    return selectedShape;
+    std::cout << "No selected shape or scribble" << std::endl;
+    return nullptr; 
 }
 
 void Canvas::eraseShapeAt(float x, float y){
     //erases shapes
+    bool wasSelectedShapeErased = false;
+
     for (int i = shapes.size() - 1; i >= 0; i--){
         if (shapes[i] && shapes[i]->contains(x,y)){
-            if (selectedShape == i) selectedShape = -1;
-
+            if (shapes[i] == selectedShape) {
+                selectedShape = nullptr;
+            }
             delete shapes[i];
             shapes.erase(shapes.begin() + i);
-
-            if (selectedShape > i) selectedShape--;
-            return;
         }
     }
-
     // Erase scribbles
     for (int i = scribbles.size()-1; i >= 0; i--) {
         if (scribbles[i] && scribbles[i]->contains(x, y)) {
-            if (selectedShape == i) selectedShape = -1;
+            if (scribbles[i] == selectedShape) {
+                selectedShape = nullptr;
+            }
             delete scribbles[i];
             scribbles.erase(scribbles.begin() + i);
             
         }
         
+    }
+
+    if (wasSelectedShapeErased) {
+        selectedShape = nullptr;
     }
 }

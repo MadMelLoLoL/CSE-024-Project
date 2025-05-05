@@ -1,4 +1,7 @@
 #include "Toolbar.h"
+#include "Enums.h"
+#include <FL/Enumerations.H>
+#include <bobcat_ui/image.h>
 using namespace bobcat;
 
 void Toolbar::deselectAllTools() {
@@ -9,6 +12,11 @@ void Toolbar::deselectAllTools() {
     rectangleButton->color(FL_BACKGROUND_COLOR);
     polygonButton->color(FL_BACKGROUND_COLOR);
     mouseButton->color(FL_BACKGROUND_COLOR);
+    
+    toFrontButton->color(FL_BACKGROUND_COLOR);
+    toBackButton->color(FL_BACKGROUND_COLOR);
+    biggerButton->color(FL_BACKGROUND_COLOR);
+    smallerButton->color(FL_BACKGROUND_COLOR);
 }
 
 void Toolbar::visualizeSelectedTool() {
@@ -32,6 +40,18 @@ void Toolbar::visualizeSelectedTool() {
     }
     else if (tool == MOUSE) {
         mouseButton->color(FL_WHITE);
+    }
+    else if(tool == TO_FRONT){
+        toFrontButton->color(FL_WHITE);
+    }
+    else if (tool == TO_BACK){
+        toBackButton->color(FL_WHITE);
+    }
+    else if(tool == BIG){
+        biggerButton->color(FL_WHITE);
+    }
+    else if (tool == SMALL){
+        smallerButton->color(FL_WHITE);
     }
 }
 
@@ -64,6 +84,19 @@ void Toolbar::onClick(bobcat::Widget* sender) {
     else if (sender == mouseButton) {
         tool = MOUSE;
     }
+    else if (sender == toFrontButton){
+        tool = TO_FRONT;
+    }
+    else if (sender == toBackButton){
+        tool = TO_BACK;
+    }
+    else if (sender == biggerButton){
+        tool = BIG;
+    }
+    else if (sender == smallerButton){
+        tool = SMALL;
+    }
+
 
     if (onChangeCb) {
         onChangeCb(this);
@@ -90,6 +123,11 @@ Toolbar::Toolbar(int x, int y, int w, int h) : Group(x, y, w, h) {
     polygonButton = new Image(x, y + 250, 50, 50, "./assets/polygon.png");
     clearButton = new Image(x, y + 300, 50, 50, "./assets/clear.png");
     mouseButton = new Image(x, y + 350, 50, 50, "./assets/mouse.png");
+    toFrontButton = new Image(x,y+400,50,50, "./assets/bring-to-front.png");
+    toBackButton = new Image(x, y + 450, 50,50, "./assets/send-to-back.png");
+    biggerButton = new Image(x, y + 500,50,50, "./assets/bring-to-front.png");
+    smallerButton = new Image(x, y + 550, 50,50, "./assets/send-to-back.png");
+
 
     tool = PENCIL;
     action = NONE;
@@ -102,6 +140,10 @@ Toolbar::Toolbar(int x, int y, int w, int h) : Group(x, y, w, h) {
     polygonButton->box(FL_BORDER_BOX);
     clearButton->box(FL_BORDER_BOX);
     mouseButton->box(FL_BORDER_BOX);
+    toFrontButton->box(FL_BORDER_BOX);
+    toBackButton->box(FL_BORDER_BOX);
+    biggerButton->box(FL_BORDER_BOX);
+    smallerButton->box(FL_BORDER_BOX);
 
     visualizeSelectedTool();
 
@@ -113,4 +155,8 @@ Toolbar::Toolbar(int x, int y, int w, int h) : Group(x, y, w, h) {
     ON_CLICK(polygonButton, Toolbar::onClick);
     ON_CLICK(clearButton, Toolbar::onClick);
     ON_CLICK(mouseButton, Toolbar::onClick);
+    ON_CLICK(toFrontButton, Toolbar::onClick);
+    ON_CLICK(toBackButton, Toolbar::onClick);
+    ON_CLICK(biggerButton, Toolbar::onClick);
+    ON_CLICK(smallerButton, Toolbar::onClick);
 }
