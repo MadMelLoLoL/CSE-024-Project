@@ -11,9 +11,9 @@
 class Shape{
 float x;
 float y;
-float r;
-float g;
-float b;
+float r = 1.0f;  // Default to red
+    float g = 0.0f;
+    float b = 0.0f;
 
 
 public:
@@ -33,10 +33,6 @@ public:
     float getB() { return b; }
 
     virtual void setPosition(float x, float y) = 0;
-
-    
-
-    //void setColor(Color color) { this->color = color; }
 
     virtual ~Shape(){}
 };

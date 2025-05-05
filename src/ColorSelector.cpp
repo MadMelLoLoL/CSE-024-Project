@@ -98,7 +98,7 @@ Color ColorSelector::getColor() const {
         return Color(148/255.0, 0/255.0, 211/255.0);
     }
     else if (color == CUSTOM) {
-        // Get the custom color from the RGB button
+        //Get the custom color from the RGB button
         Fl_Color c = rgbButton->color();
         unsigned char red, green, blue;
         Fl::get_color(c, red, green, blue);

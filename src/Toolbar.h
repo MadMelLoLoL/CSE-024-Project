@@ -13,7 +13,6 @@ class Toolbar : public bobcat::Group {
     bobcat::Image* polygonButton;
     bobcat::Image* clearButton;
     bobcat::Image* mouseButton;
-    
     bobcat::Image* toFrontButton;
     bobcat::Image* toBackButton;
     bobcat::Image* biggerButton;

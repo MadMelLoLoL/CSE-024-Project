@@ -79,9 +79,8 @@ Shape* Canvas::getSelectedShape(float mx, float my) {
     std::cout << "=== Checking selection at (" << mx << "," << my << ") ===" << std::endl;
 
     for (unsigned int i = 0; i < shapes.size(); i++) {
-        // ask every shape if we clicked on it
         if (shapes[i]->contains(mx, my)) {
-            shapes[i]->selected = true; // trigger outline
+            shapes[i]->selected = true; 
             selectedShape = shapes[i];
             return selectedShape;
         }
@@ -114,7 +113,7 @@ void Canvas::eraseShapeAt(float x, float y){
             shapes.erase(shapes.begin() + i);
         }
     }
-    // Erase scribbles
+    //Erase scribbles
     for (int i = scribbles.size()-1; i >= 0; i--) {
         if (scribbles[i] && scribbles[i]->contains(x, y)) {
             if (scribbles[i] == selectedShape) {
@@ -129,5 +128,39 @@ void Canvas::eraseShapeAt(float x, float y){
 
     if (wasSelectedShapeErased) {
         selectedShape = nullptr;
+    }
+}
+
+//shape front and back plus index counter
+int Canvas::findShapeIndex(Shape* shape) {
+    for (size_t i = 0; i < shapes.size(); ++i) {
+        if (shapes[i] == shape) {
+            return static_cast<int>(i);
+        }
+    }
+    return -1;
+}
+
+void Canvas::moveShapeToFront(Shape* shape) {
+    int index = findShapeIndex(shape);
+    if (index != -1) {
+        // Erase from current position
+        Shape* temp = shapes[index];
+        shapes.erase(shapes.begin() + index);
+        // Add to end
+        shapes.push_back(temp);
+        redraw();
+    }
+}
+
+void Canvas::moveShapeToBack(Shape* shape) {
+    int index = findShapeIndex(shape);
+    if (index != -1) {
+        // Erase from current position
+        Shape* temp = shapes[index];
+        shapes.erase(shapes.begin() + index);
+        // Insert at beginning
+        shapes.insert(shapes.begin(), temp);
+        redraw();
     }
 }

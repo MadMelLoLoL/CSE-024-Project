@@ -53,6 +53,8 @@ class Scribble : public Shape {
 
             points[pCounter] = Point(x - this->x, y - this->y, r, g, b , size);
             pCounter++;
+
+            
         }
 
         void draw() {

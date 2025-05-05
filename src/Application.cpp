@@ -16,12 +16,6 @@ void Application::onCanvasMouseDown(bobcat::Widget* sender, float mx, float my) 
     TOOL tool = toolbar->getTool();
     Color color = colorSelector->getColor();
 
-    if (tool != MOUSE && selectedShape){
-        canvas->clearSelection();
-        selectedShape = nullptr;
-        canvas->redraw();
-    }
-
     if (tool == PENCIL) {
         canvas->addPoint(mx, my, color.getR(), color.getG(), color.getB(), 7);
         canvas->redraw();
@@ -47,11 +41,21 @@ void Application::onCanvasMouseDown(bobcat::Widget* sender, float mx, float my) 
         canvas->redraw();
     }
     else if (tool == MOUSE) {
-    selectedShape = canvas->getSelectedShape(mx, my);
-    if(selectedShape){
-        isDraggingShape = true;
+        selectedShape = canvas->getSelectedShape(mx, my);
+        if(selectedShape){
+            isDraggingShape = true;
+        }
     }
-}
+    else if (tool == TO_FRONT){
+        if (selectedShape) {
+            canvas->moveShapeToFront(selectedShape);
+        }
+    }
+    else if (tool == TO_BACK){
+        if (selectedShape) {
+            canvas->moveShapeToBack(selectedShape);
+        }
+    }
 
 
 }
@@ -99,13 +103,13 @@ void Application::onCanvasMouseUp(bobcat::Widget* sender, float mx, float my){
 
 
 Application::Application() {
-    window = new Window(25, 75, 400, 550, "Pain Simulator");
+    window = new Window(25, 75, 400, 600, "Pain Simulator");
 
     selectedShape = nullptr;
 
-    toolbar = new Toolbar(0, 0, 50, 550);
-    canvas = new Canvas(50, 0, 350, 425);
-    colorSelector = new ColorSelector(50, 425, 350, 125);
+    toolbar = new Toolbar(0, 0, 50, 600);
+    canvas = new Canvas(50, 0, 350, 475);
+    colorSelector = new ColorSelector(50, 475, 350, 125);
 
     colorSelector->box(FL_BORDER_BOX);
 

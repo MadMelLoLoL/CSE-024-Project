@@ -34,8 +34,9 @@ public:
     void render();
 
     //front and back buttons
-    void moveFront();
-    void moveBack();
+    void moveShapeToFront(Shape* shape);
+    void moveShapeToBack(Shape* shape);
+    int findShapeIndex(Shape* shape);//finds shape placement
 
 //eraser tool 
     void eraseShapeAt(float x, float y);

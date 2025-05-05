@@ -12,7 +12,6 @@ void Toolbar::deselectAllTools() {
     rectangleButton->color(FL_BACKGROUND_COLOR);
     polygonButton->color(FL_BACKGROUND_COLOR);
     mouseButton->color(FL_BACKGROUND_COLOR);
-    
     toFrontButton->color(FL_BACKGROUND_COLOR);
     toBackButton->color(FL_BACKGROUND_COLOR);
     biggerButton->color(FL_BACKGROUND_COLOR);
@@ -127,8 +126,8 @@ Toolbar::Toolbar(int x, int y, int w, int h) : Group(x, y, w, h) {
     mouseButton = new Image(x, y + 350, 50, 50, "./assets/mouse.png");
     toFrontButton = new Image(x,y+400,50,50, "./assets/bring-to-front.png");
     toBackButton = new Image(x, y + 450, 50,50, "./assets/send-to-back.png");
-    biggerButton = new Image(x, y + 500,50,50, "./assets/bring-to-front.png");
-    smallerButton = new Image(x, y + 550, 50,50, "./assets/send-to-back.png");
+    biggerButton = new Image(x, y + 500,50,50, "./assets/plus.png");
+    smallerButton = new Image(x, y + 550, 50,50, "./assets/minus.png");
 
 
     tool = PENCIL;

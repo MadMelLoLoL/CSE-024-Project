@@ -16,15 +16,6 @@ public:
     Point();
     Point(float x, float y);
     Point(float x, float y, float r, float g, float b);
-  /* 
-    Point(float x, float y, Color color, int size) {
-        this->x = x;
-        this->y = y;
-        this->r = color.getR(); 
-        this->g = color.getG();
-        this->b = color.getB();
-        this->size = size;
-    }*/ 
     Point(float x, float y, float r, float g, float b, int size);
 
     void draw() const;
