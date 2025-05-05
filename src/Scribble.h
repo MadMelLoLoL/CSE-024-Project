@@ -3,7 +3,6 @@
 
 #include <cmath>
 
-//#include "Color.h"
 #include "Point.h"
 #include "Shape.h"
 
@@ -83,7 +82,7 @@ class Scribble : public Shape {
             }
 
             //checks individual points
-            const float outerBorder = 10.0f; // Pixel
+            const float outerBorder = 10.0f;
             const float outerBorder_SQ = outerBorder * outerBorder;
             
             for (int i = 0; i < pCounter; i++) {

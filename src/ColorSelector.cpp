@@ -1,4 +1,5 @@
 #include "ColorSelector.h"
+#include <bobcat_ui/textbox.h>
 using namespace bobcat;
 
 void ColorSelector::deselectAllColors() {
@@ -104,8 +105,21 @@ ColorSelector::ColorSelector(int x, int y, int w, int h) : Group(x, y, w, h) {
     indigoButton = new Button(x + 250, y, 50, 50, "");
     violetButton = new Button(x + 300, y, 50, 50, "");
 
-    color = RED;
+//rgb textbox
+    rBox = new TextBox(x,y+25,100,100, " R Value");
+    gBox = new TextBox(x, y+100, 100,100, "G Value");
+    bBox = new TextBox(x, y+125, 100, 100, "B Value " );
+//rgb input
+    rInput = new Input(x+200, y+50,50,50," " );
+    bInput = new Input(x+200, y+100,50,50, " " );
+    gInput = new Input(x+200, y+150,50,50, " ");
+//rgb button val setter
+    rButton = new Button(x+250, y+50,100,50,"Set Value");
+    gButton = new Button(x+250, y+100,100,50,"Set Value");
+    bButton = new Button(x+250, y+150,100,50,"Set Value");
 
+    color = RED;//default color
+//color buttons
     redButton->color(fl_rgb_color(255, 0, 0));
     redButton->labelcolor(FL_WHITE);
     orangeButton->color(fl_rgb_color(255, 127, 0));
