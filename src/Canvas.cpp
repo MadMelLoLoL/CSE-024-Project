@@ -95,6 +95,13 @@ Shape* Canvas::getSelectedShape(float mx, float my) {
         std::cout << "Shape " << i << " selected: " << (shapes[i]->selected ? "true" : "false") << std::endl;
     }
 
+     for (unsigned int i = 0; i < scribbles.size(); i++){
+        if (scribbles[i]->contains(mx,my)){
+            std::cout << "Clicked on scribble["<< i << "]" << std::endl;
+            selectedShape = scribbles[i];
+            break;
+        }
+    }
 
     if (selectedShape == nullptr) {
         std::cout << "No selected shape" << std::endl;
