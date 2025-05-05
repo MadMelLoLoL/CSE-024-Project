@@ -109,6 +109,11 @@ class Scribble : public Shape {
             this->g = g;
             this->b = b;
         }
+
+        void setPosition(float x, float y){
+            this->x = x;
+            this->y = y;
+        }
 };
 
 #endif

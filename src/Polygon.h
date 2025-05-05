@@ -21,6 +21,7 @@ public:
     void draw();
     bool contains(float mx, float my);
     void setColor(float r, float g, float b);
+    void setPosition(float x, float y);
     void setSelected(bool s) { selected = s;}
 };
 

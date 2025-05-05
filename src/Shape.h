@@ -32,8 +32,7 @@ public:
     float getG() { return g; }
     float getB() { return b; }
 
-    void setX(float x){ this->x = x; }
-    void setY(float y){ this->y = y; }
+    virtual void setPosition(float x, float y) = 0;
 
     
 

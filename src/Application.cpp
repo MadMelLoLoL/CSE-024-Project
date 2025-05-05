@@ -3,6 +3,9 @@
 
 using namespace bobcat;
 using namespace std;
+float offsetX = 0;
+float offsetY = 0;
+bool isDraggingShape = false;
 
 
 void Application::eraseAt(float x, float y){
@@ -44,8 +47,11 @@ void Application::onCanvasMouseDown(bobcat::Widget* sender, float mx, float my) 
         canvas->redraw();
     }
     else if (tool == MOUSE) {
-        selectedShape = canvas->getSelectedShape(mx, my);
+    selectedShape = canvas->getSelectedShape(mx, my);
+    if(selectedShape){
+        isDraggingShape = true;
     }
+}
 
 
 }
@@ -60,6 +66,10 @@ void Application::onCanvasDrag(bobcat::Widget* sender, float mx, float my) {
     }
     else if (tool == ERASER) {
         eraseAt(mx, my);
+        canvas->redraw();
+    }
+    else if(tool == MOUSE && isDraggingShape && selectedShape){
+        selectedShape->setPosition(mx, my);
         canvas->redraw();
     }
 }
@@ -83,6 +93,9 @@ void Application::onColorSelectorChange(bobcat::Widget* sender) {
     }
 }
 
+void Application::onCanvasMouseUp(bobcat::Widget* sender, float mx, float my){
+    isDraggingShape = false;
+}
 
 
 Application::Application() {

@@ -37,6 +37,8 @@ void Toolbar::visualizeSelectedTool() {
 
 void Toolbar::onClick(bobcat::Widget* sender) {
     deselectAllTools();
+    Fl_Widget* below = Fl::belowmouse();
+    printf("clicked: %p | below mouse: %p\n", sender, below);
 
     action = NONE;
 
@@ -89,7 +91,7 @@ Toolbar::Toolbar(int x, int y, int w, int h) : Group(x, y, w, h) {
     rectangleButton = new Image(x, y + 200, 50, 50, "./assets/rectangle.png");
     polygonButton = new Image(x, y + 250, 50, 50, "./assets/polygon.png");
     clearButton = new Image(x, y + 300, 50, 50, "./assets/clear.png");
-    mouseButton = new Image(x, y + 350, 50, 50, "./assets/mouse.png");
+    mouseButton = new Image(x, y + 350 , 50, 50, "./assets/mouse.png");
 
     tool = PENCIL;
     action = NONE;
