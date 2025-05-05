@@ -25,14 +25,12 @@ class ColorSelector : public bobcat::Group {
     bobcat::Input* gInput;
     bobcat::Input* bInput;
     //rgb setters
-    bobcat::Button* rButton;
-    bobcat::Button* gButton;
-    bobcat::Button* bButton;
-
+    bobcat::Button* rgbButton;
 
     COLOR color;
     void deselectAllColors();
     void visualizeSelectedColor();
+    void rgbSet();
     void onClick(bobcat::Widget* sender);
 
 public:
