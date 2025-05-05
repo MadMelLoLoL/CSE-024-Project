@@ -83,7 +83,7 @@ Shape* Canvas::getSelectedShape(float mx, float my) {
         }
     }
     if (selectedShape == nullptr) {
-        std::cout << "No selected shape" << std::endl;
+        std::cout << "No selected shape or scribble" << std::endl;
     }
 
     return selectedShape;
