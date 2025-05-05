@@ -11,6 +11,11 @@ class Scribble : public Shape {
     Point points[5000];
     int pCounter;
 
+    float x;
+    float y;
+    float r;
+    float g;
+    float b;
     float left;
     float right;
     float top;
