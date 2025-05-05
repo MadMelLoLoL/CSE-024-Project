@@ -56,6 +56,14 @@ void Application::onCanvasMouseDown(bobcat::Widget* sender, float mx, float my) 
             canvas->moveShapeToBack(selectedShape);
         }
     }
+    else if (tool == BIG || tool == SMALL) {
+        selectedShape = canvas->getSelectedShape(mx, my);
+        if (selectedShape) {
+            float resizeFactor = (tool == BIG) ? 1.1f : 0.9f;  // 10% bigger/smaller
+            selectedShape->resize(resizeFactor);
+            canvas->redraw();
+        }
+    }
 
 
 }

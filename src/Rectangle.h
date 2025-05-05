@@ -21,6 +21,8 @@ public:
     bool contains(float mx, float my);
     void setColor(float r, float g, float b);
     void setPosition(float x, float y);
+    void resize(float factor);
+    float getSize() const;
 };
 
 #endif

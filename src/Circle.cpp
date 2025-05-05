@@ -54,3 +54,14 @@ void Circle::setPosition(float x, float y){
     this->x = x;
     this->y = y;
 }
+
+void Circle::resize(float factor){
+    radius *= factor;
+
+    radius = std::max(0.01f, radius);
+    radius = std::min(2.0f, radius);
+}
+
+float Circle::getSize() const{
+    return radius;
+}

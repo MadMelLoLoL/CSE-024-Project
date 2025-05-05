@@ -33,12 +33,6 @@ void Rectangle::draw() {
         glVertex2f(x - width/2, y - height/2);
     glEnd();
 
-    if (selected == true){
-        Rectangle outer(x, y, 0.85 * width, 0.85 * height, 1.0f, 1.0f, 1.0f);
-        Rectangle inner(x, y, 0.75 * width, 0.75 * height, r, g, b);
-        outer.draw();
-        inner.draw();
-    }
 }
 
 bool Rectangle::contains(float mx, float my) {
@@ -57,4 +51,13 @@ void Rectangle::setColor(float r, float g, float b) {
 void Rectangle::setPosition(float x, float y){
     this->x = x;
     this->y = y;
+}
+
+void Rectangle::resize(float factor){
+    width*=factor;
+    height*=factor;
+}
+
+float Rectangle::getSize() const{
+    return (width + height) / 2.0f;
 }

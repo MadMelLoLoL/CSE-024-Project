@@ -21,6 +21,8 @@ public:
     virtual void draw() = 0;
     virtual bool contains(float mx, float my) = 0;
     virtual void setColor(float r, float g, float b) = 0;
+    virtual void resize(float factor) = 0;
+    virtual float getSize() const = 0;
 
     void select() {selected = true; }
     void deselect() {selected = false; }

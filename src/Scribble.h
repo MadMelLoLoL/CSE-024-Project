@@ -116,6 +116,14 @@ class Scribble : public Shape {
             this->x = x;
             this->y = y;
         }
+
+        void resize(float factor){
+
+        }
+
+        float getSize() const{
+
+        } 
 };
 
 #endif

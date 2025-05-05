@@ -34,17 +34,6 @@ void Polygon::draw(){
     }
     glEnd();
 
-    if (selected == true){
-        glColor3f(1.0f, 1.0f, 1.0f);
-        glLineWidth(2.0f);
-        glBegin(GL_LINE_LOOP);
-        for (int i = 0; i < n; i++){
-            float theta = i * inc + rot + M_PI/2;
-            glVertex2f(radius * cos(theta) + x, radius * sin(theta) + y);
-        }
-        glEnd();
-        glLineWidth(1.0f);
-    }
 }
 
 bool Polygon::contains(float mx, float my){
@@ -77,4 +66,12 @@ void Polygon::setColor(float r, float g, float b){
 void Polygon::setPosition(float x, float y){
     this->x = x;
     this->y = y;
+}
+
+void Polygon::resize(float factor){
+    radius*=factor;
+}
+
+float Polygon::getSize() const{
+    return radius;
 }
