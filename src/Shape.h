@@ -35,6 +35,8 @@ public:
     float getB() { return b; }
 
     virtual void setPosition(float x, float y) = 0;
+    bool isSelected() const { return selected; }
+    void setSelected(bool sel) { selected = sel; }
 
     virtual ~Shape(){}
 };

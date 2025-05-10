@@ -26,6 +26,7 @@ public:
     float getG() const;
     float getB() const;
     int getSize() const;
+    void setPosition(float x, float y);
 };
 
 #endif

@@ -5,7 +5,7 @@
 
 #include "Point.h"
 #include "Shape.h"
-
+#include <iostream>
 
 class Scribble : public Shape {
     Point points[5000];
@@ -58,27 +58,12 @@ class Scribble : public Shape {
         }
 
         void draw() {
-            if (selected) {
-                glLineWidth(2);
-                glColor3f(0.66, 0.66, 0.66);
-
-                glBegin(GL_LINE_LOOP);
-                glVertex2f(x - left - 0.04, y + top + 0.04);
-                glVertex2f(x + right + 0.04, y + top + 0.04);
-                glVertex2f(x + right + 0.04, y - bottom - 0.04);
-                glVertex2f(x - left - 0.04, y - bottom - 0.04);
-                glEnd();
-
-                glLineWidth(1);
-            }
-
+                glColor3f(r, g, b);
+                
             for (int i = 0; i < pCounter; i++) {
                 float currX = x + points[i].getX();
                 float currY = y + points[i].getY();
-                float currR = getR();
-                float currG = getG();
-                float currB = getB();
-                Point temp(currX, currY, currR, currG, currB, 7);
+                Point temp(currX, currY, r, g, b, 7);
                 temp.draw();
             }  
         }
@@ -107,6 +92,10 @@ class Scribble : public Shape {
         }
 
         void setColor(float r, float g, float b) {
+            std::cout << "[DEBUG] Setting color - Old values (r,g,b): (" 
+                  << this->r << ", " << this->g << ", " << this->b << ")\n";
+            std::cout << "[DEBUG] Setting color - New values (r,g,b): (" 
+                  << r << ", " << g << ", " << b << ")\n";
             this->r = r;
             this->g = g;
             this->b = b;
@@ -122,7 +111,7 @@ class Scribble : public Shape {
         }
 
         float getSize() const{
-            
+            return 0.0f;
         } 
 };
 

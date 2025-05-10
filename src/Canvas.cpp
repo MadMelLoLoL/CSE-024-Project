@@ -74,28 +74,23 @@ void Canvas::render() {
 }
 
 Shape* Canvas::getSelectedShape(float mx, float my) {
-    Shape* selectedShape = nullptr;
+    // Check scribbles FIRST (since they're typically drawn last)
+    for (int i = scribbles.size()-1; i >= 0; i--) {
+        if (scribbles[i]->contains(mx, my)) {
+            scribbles[i]->setSelected(true);
+            return scribbles[i];
+        }
+    }
     
-    std::cout << "=== Checking selection at (" << mx << "," << my << ") ===" << std::endl;
-
-    for (unsigned int i = 0; i < shapes.size(); i++) {
+    // Then check other shapes
+    for (int i = shapes.size()-1; i >= 0; i--) {
         if (shapes[i]->contains(mx, my)) {
-            shapes[i]->selected = true; 
-            selectedShape = shapes[i];
-            return selectedShape;
-        }
-       
-    }
-
-     for (unsigned int i = 0; i < scribbles.size(); i++){
-        if (scribbles[i]->contains(mx,my)){
-            std::cout << "Clicked on scribble["<< i << "]" << std::endl;
-            selectedShape = scribbles[i];
-            break;
+            shapes[i]->setSelected(true);
+            return shapes[i];
         }
     }
-    std::cout << "No selected shape or scribble" << std::endl;
-    return nullptr; 
+    
+    return nullptr;
 }
 
 

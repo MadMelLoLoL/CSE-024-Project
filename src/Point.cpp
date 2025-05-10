@@ -57,3 +57,9 @@ float Point::getB() const {
 int Point::getSize() const {
     return size;
 }
+
+void Point::setPosition(float x, float y){
+    this->x = x;
+    this->y = y;
+}
+
